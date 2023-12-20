@@ -1,0 +1,44 @@
+{% extends 'Base.html' %}
+
+{% block content %}
+<div class="main">
+    <div class="row">
+        <div class="col-md-1"></div>
+        <div class="col ml-auto">
+        <div class="main-body pt-1">
+    <div class="container mt-3">
+    <div class="container">
+    <h3 align="center">Reset Password</h3>
+    <div class="row justify-content-center">
+        <!---Creating Form For Registration-->
+        <div class="card-body">
+            <form action="{% url 'AccountSettings' %}" method="POST">
+                {% csrf_token %}
+                <div class="form-group">
+                    <label for="OldPassword">Current Password</label>
+                    <input type="password" name="OldPassword" class="form-control" required>       <!--- 'required'--validation-->
+                </div>
+                <div class="form-group">
+                    <label for="Password">Password</label>
+                    <input type="password" name="Password" class="form-control" required>       <!--- 'required'--validation-->
+                </div>
+                <div class="form-group">
+                    <label for="ConfirmPassword">Confirm Password</label>
+                    <input type="password" name="ConfirmPassword" class="form-control" required>       <!--- 'required'--validation-->
+                </div>
+                <br>
+                <!---/Creating Button For Submit-->
+                <input type="submit" value="Reset" class="btn btn-secondary btn-block">
+                <!---/Creating Button For Submit-->
+            </form>
+        </div>
+        <!---/Creating Form For Registration-->
+    </div>
+</div>
+    </div>
+        </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

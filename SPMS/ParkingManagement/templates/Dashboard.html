@@ -1,0 +1,14 @@
+{% extends 'Base.html' %}
+
+{% block content %}
+<div class="main">
+    <div class="main1">
+  <a href="#"><h1 class="parked">{{ parked_count }}Vehicles Parked &nbsp;&nbsp;&nbsp;<i class="fas fa-parking fa-2x"></i></h1></a>
+  <a href="#"><h1 class="departed">{{ departed_count }} Departed Vehicles &nbsp;&nbsp;&nbsp;<i class="fa fa-car fa-2x" aria-hidden="true"></i></h1></a>
+  <a href="#"><h1 class="category">{{ category_count }}Available Category &nbsp;&nbsp;&nbsp;<i class="fa-solid fa-box fa-2x"></i></h1></a>
+  <a href="#"><h1 class="earnings">{{ total_earnings }}Total Earnings &nbsp;&nbsp;&nbsp;<i class="fas fa-money-check-alt fa-2x"></i></h1></a>
+  <a href="#"><h1 class="records">{{ records_count }}Total Records &nbsp;&nbsp;&nbsp;<i class="fa fa-bars fa-2x" aria-hidden="true"></i></h1></a>
+  <a href="#"><h1 class="total">Total Parking Slots &nbsp;&nbsp;&nbsp;<i class="fa-solid fa-check-double fa-2x"></i></h1></a>
+    </div>
+</div>
+{% endblock %}

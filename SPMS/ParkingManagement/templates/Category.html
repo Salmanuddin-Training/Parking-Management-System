@@ -1,0 +1,167 @@
+{% extends 'Base.html' %}
+
+{% block content %}
+<div class="main md-6">
+    <div class="row  d-flex inline" style="width:500px; height:380px">
+        <div class="d-flex main-body pt-1 ">
+            <div class="d-flex flex-column ">
+                <div class="d-flex card m-2" style="width:500px; height:380px">
+                  <div class="card-header">
+                    Add Category
+                  </div>
+                  <div class="justify-content-center">
+                    <div class="form-outline m-3"    >
+          <form action="" method="post">
+
+                   <div class="card">
+                   {% csrf_token %}
+
+                    {{ form }}
+                       <br>
+                     <input type="submit" name="submit" class="btn btn-primary">
+                 </div>
+          </form>
+                    </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        </div>
+
+        <div class="row pt-3 d-flex inline" style="width:300px; height:380px">
+            <div class="d-flex  pt-1 ">
+                <div class="d-flex flex-column ">
+                    <div class="d-flex card m-2" style="width:300px; height:380px">
+                      <div class="card-header">
+                        Details
+                      </div>
+                      <div class="justify-content-center">
+                        <div class="form-outline m-3"    >
+                            <div class="card">
+                                <ul class="list-group list-group-flush">
+                                    <li class="list-group-item">Car &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; $ 4.00</li>
+                                    <li class="list-group-item">Motorcycle &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; $ 2.00</li>
+                                    <li class="list-group-item">Mini Van &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; $ 5.00</li>                                   
+                                    <li class="list-group-item">Pickup Van  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; $ 5.00</li>                                    
+                                    <li class="list-group-item">Minibus &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; $ 6.00</li>
+                                    <li class="list-group-item">Car Type 101 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; $ 7.00</li>
+                                  </ul>
+                            </div>
+                        </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        
+
+
+    <div class="d-flex flex-column">
+       <div class="card m-2" style="width:1000px; height:550px">
+         <div class="card-header">
+           Manage Category
+         </div>
+           <div class="d-flex justify-content-between">
+               <div class="form-outline d-flex m-2" style="width: 200px; height:30px">
+                   <label class="form-label p-1 " for="typeNumber">Show</label>
+                   <input value="50" type="number" id="typeNumber" class="form-control" />
+
+                   <label class="form-label p-1" for="typeNumber">Entries</label>
+               </div>
+               <div class="d-flex m-2" style="width:250px">
+                       <form class="d-flex" role="search" method="get" action="{% url 'CategorySearch' %}">Search: &nbsp;
+                   <input class="form-control-sm"  type="search"  aria-label="Search" name="query">
+                   </form>
+                   </div>
+           </div>
+           <div class="card-body ">
+             <table class="table table-bordered border-secondary w-55" >
+               <thead class = "">
+
+         <tr>
+             <table class="table table-bordered">
+                 <th>S No.</th>
+                 <th>Area Number</th>
+                 <th>Vehicle Type</th>
+                 <th>Vehicle Limit</th>
+                 <th>Charge</th>
+                 <th>status</th>
+                 <th>Action</th>
+           </tr>
+                 {% if display %}
+                        {% for category in display %}
+                     <tr>
+                               <td>{{category.id}}</td>
+                               <td>{{category.parking_area_no}}</td>
+                                <td>{{category.vehicle_type}}</td>
+                               <td>{{category.vehicle_limit}}</td>
+                               <td>{{category.parking_charge}}</td>
+                                     {% if category.status %}
+                                       <td><a href="" class="btn btn-danger">Deactivate</a></td>
+                                       <td><a href="{% url 'Deactive' category.pk %}" class="btn btn-success">Activate</a></td>
+                                         {% else %}
+                                         <td><a href="" class="btn btn-success">Activate</a></td>
+                                         <td><a href="{% url 'Active' category.pk %}" class="btn btn-danger">Deactivate</a></td>
+                                         <td><a href="{% url 'Update' category.id %}" class="btn btn-info"><i class="fa-solid fa-pen-to-square" style="color: #082e54;"></i></a>
+                                         <a href="{% url 'Delete' category.id %}" class="btn btn-danger"><i class="fa-solid fa-trash-can"></i></a></td>
+                                     {% endif %}
+
+                     </tr>
+                        {% endfor %}
+                      {% else %}
+                  <p>...No Vehicles...</p>
+                 {% endif %}
+
+
+             </table>
+               <td>
+          {% if display.has_other_pages %}
+                     <ul class="pagination">
+                         <!--- Here we are creating previous button navigation starts here--->
+                         {% if display.has_previous %}
+
+                           <li class="page-item">
+                               <a href="?page={{ display.previous_page_number }}" class="page-link">Previous</a>
+                           </li>
+                         {% else %}
+                            <li class="page-item disabled">
+                                <a href="?page=1" class="page-link">Previous</a>
+                            </li>
+                         {% endif %}
+                         <!--- Here we are creating previous button navigation end here--->
+
+                         <!--- Here we are creating the page number to display the page navigation start-->
+                         {% for i in display.paginator.page_range %}
+                             {% if display.number == i %}
+                                  <li class="page-item active">
+                                      <a href="?page={{ i }}" class="page-link">{{ i }}</a>
+                                  </li>
+                             {% else %}
+                                   <li class="page-item">
+                                      <a href="?page={{ i }}" class="page-link">{{ i }}</a>
+                                  </li>
+                             {% endif %}
+                         {% endfor %}
+                         <!--- Here we are creating the page number to display the page navigation end-->
+
+                         <!--- Here we are creating next button navigation stars here--->
+                         {% if display.has_next %}
+                            <li class="page-item">
+                                <a href="?page={{ display.next_page_number }}" class="page-link">Next</a>
+                            </li>
+                         {% else %}
+                            <li class="page-item disabled">
+                                <a href="?page={{ display.paginator.number_page }}" class="page-link">Next</a>
+                            </li>
+                         {% endif %}
+                         <!--- Here we are creating next button navigation stars here--->
+                     </ul>
+                  {% endif %}
+                   </td>
+
+               </table>
+         </div>
+       </div>
+   </div>
+   </div>
+
+{% endblock %}

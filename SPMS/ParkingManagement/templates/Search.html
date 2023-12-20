@@ -1,0 +1,56 @@
+{% extends 'Base.html' %}
+
+{% block content %}
+<div class="main">
+    <div class="container">
+		<div class="card">
+            <div class="card-header">Search Data| only the records of the last 30 days are available here</div>
+                   <br>
+                   <br>
+                   <br>
+            <form class="d-flex" role="search" method="get" action="{% url 'Search' %}">
+              <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" name="query">
+              <button class="btn btn-outline-secondary btn-dark" type="button" id="button-addon2"><i class="fa fa-search "></i></button>
+            </form>
+                  <br>
+                  <br>
+
+           <table id="example" class="table table-bordered" style="width:100%">
+            <thead class="table-light">
+                <tr>
+                    <th>S No.</th>
+                    <th>Vehicle Number</th>
+                    <th>Type</th>
+                    <th>Area No.</th>
+                    <th>Charge</th>
+                    <th>Arrival Time</th>
+                    <th>Status</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                         {% if display %}
+                            {% for x in display %}
+                                 <tr>
+                                    <td>{{x.id}}</td>
+                                    <td>{{x.vehicle_no}}</td>
+                                    <td>{{x.vehicle_type}}</td>
+                                    <td>{{x.parking_area_no}}</td>
+                                    <td>{{x.parking_charge}}</td>
+                                    <td>{{x.arrival_time}}</td>
+                                    <td>{{x.status}}</td>
+                                    <td>{{x.action}}</td>
+                                 </tr>
+                      {% endfor %}
+                    {% else %}
+                        <p>...No Vehicles...</p>
+                    {% endif %}
+
+                </tr>
+                </tr>
+            </tbody>
+           </table>
+    </div>
+
+{% endblock %}
